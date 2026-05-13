@@ -2,7 +2,8 @@ FROM php:7.4-fpm
 
 RUN docker-php-ext-install pdo pdo_mysql
 
-RUN apt-get update && apt-get install -y \
+RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list \
+    && apt-get update && apt-get install -y \
     nginx \
     libssl-dev \
     && docker-php-ext-install pdo pdo_mysql phar \    

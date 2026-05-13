@@ -1,8 +1,7 @@
 FROM python:2.7-slim-stretch
 
-RUN echo "deb [trusted=yes] http://archive.debian.org/debian/ stretch main" > /etc/apt/sources.list && \
-    echo "deb [trusted=yes] http://archive.debian.org/debian-security/ stretch/updates main" >> /etc/apt/sources.list
-
+RUN echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian/ stretch main" > /etc/apt/sources.list && \
+    echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian-security/ stretch/updates main" >> /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y phantomjs
 

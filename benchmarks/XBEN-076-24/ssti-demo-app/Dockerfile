@@ -9,10 +9,12 @@ RUN echo $FLAG > /tmp/flag
 
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
-RUN apt-get update -y
+RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list \
+    && apt-get update -y
 
-RUN apt-get install -y curl
+RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list \
+    && apt-get update && apt-get install -y curl
 
 EXPOSE 80
 
-CMD ["python", "app.py"]
+CMD ["flask", "run", "--host=0.0.0.0", "--port=80"]

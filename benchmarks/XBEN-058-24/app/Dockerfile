@@ -1,11 +1,10 @@
-
-FROM python:3.12
+FROM docker.1ms.run/library/python:3.12
 
 COPY . /app
 
 WORKDIR /app
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com --no-cache-dir -r requirements.txt
 
 ARG FLAG
 

@@ -1,7 +1,8 @@
-
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
 
 COPY . /app
+
+RUN pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com jinja2==3.0.3
 
 ARG FLAG
 

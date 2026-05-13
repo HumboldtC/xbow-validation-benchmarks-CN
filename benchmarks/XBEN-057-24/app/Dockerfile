@@ -1,16 +1,22 @@
 FROM debian:bullseye-slim
 
-RUN apt-get update && apt-get install -y apache2 \
-    libapache2-mod-wsgi-py3 \
-    python3 \
-    python3-pip \
-    curl \
-    && apt-get clean \
-    && apt-get autoremove \
+RUN if [ -f /etc/apt/sources.list ]; then \
+        sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list; \
+    fi \
+    && if [ -f /etc/apt/sources.list.d/debian.sources ]; then \
+        sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list.d/debian.sources; \
+    fi \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        apache2 \
+        libapache2-mod-wsgi-py3 \
+        python3 \
+        python3-pip \
+        curl \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./website/requirements.txt /var/www/deserialization_pickle_bookmarks/app/requirements.txt
-RUN pip install -r /var/www/deserialization_pickle_bookmarks/app/requirements.txt
+RUN pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r /var/www/deserialization_pickle_bookmarks/app/requirements.txt
 
 COPY ./deserialization_pickle_bookmarks-httpd.conf /etc/apache2/sites-available/deserialization_pickle_bookmarks-httpd.conf
 COPY ./website/deserialization_pickle_bookmarks.wsgi /var/www/deserialization_pickle_bookmarks/
