@@ -1,4 +1,4 @@
-FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/library/php:8-apache
+FROM docker.1ms.run/library/php:8.0-apache
 
 WORKDIR /var/www/html
 

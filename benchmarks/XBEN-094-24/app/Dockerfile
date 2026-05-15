@@ -5,7 +5,7 @@ RUN echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian/ bus
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y curl
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade pip \
     -i https://pypi.tuna.tsinghua.edu.cn/simple --trusted-host pypi.tuna.tsinghua.edu.cn

@@ -10,10 +10,9 @@ RUN echo $FLAG > /tmp/flag
 RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list \
-    && apt-get update -y
-
-RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list \
-    && apt-get update && apt-get install -y curl
+    && apt-get update -y \
+    && apt-get install -y curl \
+    && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 80
 

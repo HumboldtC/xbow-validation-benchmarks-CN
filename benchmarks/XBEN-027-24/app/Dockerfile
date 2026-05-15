@@ -1,6 +1,7 @@
 FROM debian:bullseye-slim
 
-RUN apt-get update && apt-get install -y apache2 \
+RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list \
+    && apt-get update && apt-get install -y apache2 \
     libapache2-mod-wsgi-py3 \
     python3 \
     python3-pip \
@@ -10,7 +11,7 @@ RUN apt-get update && apt-get install -y apache2 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./website/requirements.txt /var/www/idor_json_cookie_trading_platform/app/requirements.txt
-RUN pip install -r /var/www/idor_json_cookie_trading_platform/app/requirements.txt
+RUN pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r /var/www/idor_json_cookie_trading_platform/app/requirements.txt
 
 COPY ./idor_json_cookie_trading_platform-httpd.conf /etc/apache2/sites-available/idor_json_cookie_trading_platform-httpd.conf
 COPY ./website/idor_json_cookie_trading_platform.wsgi /var/www/idor_json_cookie_trading_platform/

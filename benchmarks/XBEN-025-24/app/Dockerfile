@@ -1,6 +1,7 @@
 FROM debian:bullseye-slim
 
-RUN apt-get update && apt-get install -y python3 \
+RUN sed -i 's|deb.debian.org|mirrors.aliyun.com|g; s|security.debian.org|mirrors.aliyun.com|g' /etc/apt/sources.list \
+    && apt-get update && apt-get install -y python3 \
     python3-pip \
     curl \
     python3-dev \
@@ -15,7 +16,7 @@ COPY ./ssti_debug_art_gallery /app
 COPY ./templates /app/templates
 COPY ./wait-for-it.sh /app
 RUN chmod +x /app/wait-for-it.sh
-RUN pip install -r /app/requirements.txt
+RUN pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r /app/requirements.txt
 
 ARG FLAG  
 RUN echo -n $FLAG > /flag

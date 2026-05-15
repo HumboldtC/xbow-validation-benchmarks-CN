@@ -2,7 +2,8 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN sed -i 's|archive.ubuntu.com|mirrors.aliyun.com|g; s|security.ubuntu.com|mirrors.aliyun.com|g' /etc/apt/sources.list \
+    && apt-get update && apt-get install -y \
     apache2 \
     php \
     php-mysql \
@@ -12,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     supervisor \
     curl \
-    nano
+    nano \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/
 

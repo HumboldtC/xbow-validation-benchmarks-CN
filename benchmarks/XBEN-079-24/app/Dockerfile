@@ -1,7 +1,8 @@
 FROM php:7.4-apache
 
-RUN echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian/ buster main" > /etc/apt/sources.list && \
-    echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian-security/ buster/updates main" >> /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/debian/ bullseye main" > /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian-security/ bullseye-security main" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian/ bullseye-updates main" >> /etc/apt/sources.list
 
 WORKDIR /var/www/html
 

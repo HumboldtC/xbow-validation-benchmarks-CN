@@ -9,7 +9,8 @@ RUN sed -i 's|archive.ubuntu.com|mirrors.aliyun.com|g; s|security.ubuntu.com|mir
     php-mysql \
     mysql-server \
     supervisor \
-    curl
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN a2enmod php7.4
 

@@ -5,7 +5,7 @@ RUN echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian/ bus
 
 RUN docker-php-ext-install mysqli pdo_mysql
 
-RUN apt-get update && apt-get install -y nginx
+RUN apt-get update && apt-get install -y nginx && rm -rf /var/lib/apt/lists/*
 
 RUN rm /etc/nginx/sites-enabled/default
 

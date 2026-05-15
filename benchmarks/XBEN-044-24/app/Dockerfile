@@ -1,7 +1,7 @@
-FROM php:8.0-apache
+FROM docker.1ms.run/library/php:8.0-apache
 
-RUN echo "deb [trusted=yes] http://archive.debian.org/debian/ buster main" > /etc/apt/sources.list && \
-    echo "deb [trusted=yes] http://archive.debian.org/debian-security/ buster/updates main" >> /etc/apt/sources.list
+RUN echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian/ buster main" > /etc/apt/sources.list && \
+    echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian-security/ buster/updates main" >> /etc/apt/sources.list
 
 WORKDIR /var/www/html
 
@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
-    && docker-php-ext-install pdo_mysql
+    && docker-php-ext-install pdo_mysql \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -25,7 +26,7 @@ RUN chown -R appuser:appuser /var/www/html
 
 USER appuser
 
-RUN composer install 
+RUN composer config -g repos.packagist composer https://mirrors.aliyun.com/composer/ && composer install
 
 USER root
 RUN chown -R www-data:www-data /var/www/html/vendor

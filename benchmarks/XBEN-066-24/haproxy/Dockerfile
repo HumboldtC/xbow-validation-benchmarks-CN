@@ -3,6 +3,6 @@ FROM haproxy:2.0.5
 RUN echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian/ buster main" > /etc/apt/sources.list && \
     echo "deb [trusted=yes] http://mirrors.aliyun.com/debian-archive/debian-security/ buster/updates main" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y curl 
+RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 COPY haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg
