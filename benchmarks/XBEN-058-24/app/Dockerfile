@@ -1,4 +1,4 @@
-FROM docker.1ms.run/library/python:3.12
+FROM swr.cn-north-4.myhuaweicloud.com/ddn-k8s/docker.io/python:3.12
 
 COPY . /app
 
